@@ -1,7 +1,5 @@
 # -*- coding: UTF-8 -*-
-import time
-import re
-import MySQLdb
+
 from setup import *
 from spider import *
 from dbSQL import *
@@ -27,6 +25,7 @@ if __name__ == '__main__':
 
 	# open the homepage and get page_source
 	driver = get_homepage(url)
+	print("result : " + driver)
 	# select some options to get different results
 	driver = set_configuration(driver)
 

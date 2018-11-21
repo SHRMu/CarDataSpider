@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import time
 from configobj import ConfigObj
-from selenium import webdriver
+#from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 # read configuration from file "config.ini" section basic
@@ -17,11 +17,14 @@ def get_basic_config():
 # setup the connection and open the index page
 def get_homepage(url):
 	try:
-		driver = webdriver.Chrome()
+		option = webdriver.ChromeOptions()
+		option.add_argument("headless")
+		driver = webdriver.Chrome(chrome_options=option)
+		#driver = webdriver.Chrome()
 		driver.get(url)
 		return driver
 	except Exception as e:
-		return ""
+		return "error"
 
 # need to be more flexible later
 def set_configuration(driver):

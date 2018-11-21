@@ -5,7 +5,7 @@ import MySQLdb
 from processing import *
 
 def start_db_connection():
-	# get config information by reading "config.ini"
+	# get config information by reading file "config.ini" 
 	config = ConfigObj("config.ini")
 	db_section = config["db"]
 	db_host = db_section["db_host"]
@@ -16,10 +16,32 @@ def start_db_connection():
 	db = MySQLdb.connect(db_host, db_user, db_pass, db_schema)
 	return db
 
+
 # count the data in the database
 def get_count_info_database():
 	db = start_db_connection()
 	cursor = db.cursor()
+	# check if table 5_star_seller_car exist
+	check_table_exist_sql = "SELECT table_name FROM information_schema.TABLES WHERE table_name ='5_star_seller_car'"
+	check_table_exist = cursor.execute(check_table_exist_sql)
+	if check_table_exist == 0:
+		create_table_sql = '''CREATE TABLE mobile_car_db.5_star_seller_car(
+								id int(8) not null primary key auto_increment,
+								brand char(20), 
+								name char(40), 
+								price char(10), 
+								prod_date char(10), 
+								prod_year char(5), 
+								kilometers char(10), 
+								power char(15), 
+								no_accident bool, 
+								HU_date char(10), 
+								door char(5), 
+								petrol boolean, 
+								manual boolean, 
+								other char(150))
+							'''
+		cursor.execute(create_table_sql)
 	count_sql = "SELECT COUNT(*) FROM 5_star_seller_car"
 	cursor.execute(count_sql)
 	count = cursor.fetchone()[0]
