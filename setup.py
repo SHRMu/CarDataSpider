@@ -1,8 +1,7 @@
 # -*- coding: UTF-8 -*-
 import time
 from configobj import ConfigObj
-#from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
 
 # read configuration from file "config.ini" section basic
 def get_basic_config():
@@ -20,7 +19,7 @@ def get_homepage(url):
 		option = webdriver.ChromeOptions()
 		option.add_argument("headless")
 		driver = webdriver.Chrome(chrome_options=option)
-		#driver = webdriver.Chrome()
+		driver = webdriver.Chrome()
 		driver.get(url)
 		return driver
 	except Exception as e:
@@ -36,7 +35,3 @@ def set_configuration(driver):
 	driver.find_element_by_id("sr-5-ds").click()
 	print("--------------------- 5-star public sellers selected ------------------------")
 	return driver
-
-
-if __name__ == '__main__':
-	get_basic_config()

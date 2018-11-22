@@ -16,7 +16,6 @@ def start_db_connection():
 	db = MySQLdb.connect(db_host, db_user, db_pass, db_schema)
 	return db
 
-
 # count the data in the database
 def get_count_info_database():
 	db = start_db_connection()
@@ -28,11 +27,11 @@ def get_count_info_database():
 		create_table_sql = '''CREATE TABLE mobile_car_db.5_star_seller_car(
 								id int(8) not null primary key auto_increment,
 								brand char(20), 
-								name char(40), 
+								name char(100), 
 								price char(10), 
 								prod_date char(10), 
-								prod_year char(5), 
-								kilometers char(10), 
+								prod_year char(20), 
+								kilometers char(30), 
 								power char(15), 
 								no_accident bool, 
 								HU_date char(10), 
@@ -53,6 +52,7 @@ def get_count_info_database():
 def search_repeated_car(cursor, name):
 	repeated_car = 0
 	check_repeat_sql = "SELECT EXISTS(SELECT * FROM 5_star_seller_car WHERE name = '"+ name +"')"
+	check_repeat_sql = check_repeat_sql.encode("utf-8").strip()
 	try:
 		cursor.execute(check_repeat_sql)
 	except Exception as e:
@@ -99,8 +99,3 @@ def insert_data(count_id, list_name, list_price, list_info_1, list_info_2, set_u
 	db.close()
 
 	return count_add
-
-if __name__ == '__main__':
-	db = start_db_connection()
-	cursor = db.cursor()
-	result = search_repeated_car()

@@ -1,8 +1,6 @@
 # -*- coding: UTF-8 -*-
 import re
 import time
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 
 def get_car_name_price(driver):
 	# name_list
